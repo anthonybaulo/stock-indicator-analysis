@@ -1,5 +1,4 @@
 #!/anaconda3/envs/dsi/bin/python
-# coding: utf-8
 
 # API restrictions:
 #  - 5 requests per minute
@@ -16,6 +15,7 @@ from alpha_vantage.techindicators import TechIndicators
 from sqlalchemy import create_engine
 import pandas as pd
 import random
+import time
 
 
 # Create API objects
@@ -135,3 +135,7 @@ engine = create_engine(f'postgresql+psycopg2://{user}:{pw}@{host}/{db_name}')
 # Append to db
 df.to_sql(table, engine, if_exists='append')
 
+
+# if __name__ == "__main__":
+#     main()
+#     time.sleep(60)
