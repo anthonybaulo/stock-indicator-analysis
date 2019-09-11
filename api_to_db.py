@@ -19,7 +19,7 @@ import sys
 import time
 
 
-def ticker_to_db(ticker, interval='5min', outputsize='full'):
+def ticker_to_db(ticker, exch, interval='5min', outputsize='full'):
     # Create API objects
     ts = TimeSeries(key=API_KEY, output_format='pandas')
     ti = TechIndicators(key=API_KEY, output_format='pandas')
@@ -121,7 +121,7 @@ def ticker_to_db(ticker, interval='5min', outputsize='full'):
     pw = 'pw'
     host = 'localhost:5432'
     db_name = 'indicator_tests'
-    table = 'sma_nasdaq'
+    table = 'sma_'+ exch.lower()
 
     # Create engine for interacting with db
     engine = create_engine(f'postgresql+psycopg2://{user}:{pw}@{host}/{db_name}')
@@ -130,24 +130,30 @@ def ticker_to_db(ticker, interval='5min', outputsize='full'):
     df.to_sql(table, engine, if_exists='append')
 
 
-def main(csv, start, stop):
-    rnd_ls = pd.read_csv(csv)['Symbol'].tolist()
-    
+def main(exch, csv, start, stop):
+    start = int(start)
+
     if stop == 'end':
         stop = None
+    else:
+        stop = int(stop)
         
-    for ticker in rnd_ls[start:stop]:
+    rnd_ls = pd.read_csv(csv)['Symbol'].tolist()
+    rnd_ls = rnd_ls[start:stop]
+
+    for i, ticker in enumerate(rnd_ls, start=1):
         try:
-            ticker_to_db(ticker)
-            print(f'Successfully processed {ticker}')
+            ticker_to_db(ticker=ticker, exch=exch)
+            print(f'{i}/{len(rnd_ls)} Successfully processed {ticker}')
         except:
-            print(f'Error when processing: {ticker}')
-        time.sleep(60)
+            print(f'{i}/{len(rnd_ls)} Error when processing {ticker}')
+        if i != len(rnd_ls):
+            time.sleep(60)
     
 
 
 if __name__ == "__main__":
-    _, csv, start, stop = sys.argv
-    main(csv, start, stop)
+    _, exch, csv, start, stop = sys.argv
+    main(exch, csv, start, stop)
 
 
