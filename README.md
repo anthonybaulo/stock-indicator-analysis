@@ -34,15 +34,18 @@ Given specific exit conditions for a stock trade, an indicator **will not** perf
 Given specific exit conditions for a stock trade, an indicator **will** perform better than random chance at predicting a winning entry point. 
 
 ## Execution
-
+1. The data was iterated through sequentially with the stated conditions to check for indicated entry points.
+2. Based on the number of indicated entry points over each 15-day timeframe, a comparable (+/-10%) number of random entry points were generated across the same timeframe.
+3. All entries were checked to statisfy the fixed exit conditions, and recorded as a win or loss.
 
 ## Results
 
+
 ## Improvements
-* Refactor the pipeline script
-	* Isolate individual functions to better conform to best practices 
+* Refactor the pipeline script to follow best practices
+	* Isolate individual functions
 	* Add logging
-	* Make it easy to plug in different conditions
+	* Modular code for different test conditions
 * Refine the schema of the Postgres database
 * Include conditions for inter-day trades
 * Create simulations for use in a portfolio subject to trading commissions
