@@ -7,21 +7,21 @@ In proper nerd fashion, by the power of science, I hope to be able to either: 1)
 
 ## The Data
 * The data was collected from the free tier of the [Alpha Vantage](https://www.alphavantage.co/) API, using the [python wrapper](https://github.com/RomelTorres/alpha_vantage) by Romel Torres 
- * 5-minute timestep intervals, over the past 15 trading days (gathered on 9/11/19 - 9/12/19)
- * Stock Price: Open, High, Low, Close
- * SMA Indicator: Numerical value
+	* 5-minute timestep intervals, over the past 15 trading days (gathered on 9/11/19 - 9/12/19)
+	* Stock Price: Open, High, Low, Close
+	* SMA Indicator: Numerical value
 * Pandas was used for data manipulation
- * Joining stock prices and their relevant indicators
- * Creating new columns based on the trading conditions for entering and exiting the hypothetical trade.
- * Porting the transformed data to a PostgreSQL Database
+	* Joining stock prices and their relevant indicators
+	* Creating new columns based on the trading conditions for entering and exiting the hypothetical trade.
+	* Porting the transformed data to a PostgreSQL Database
 
 * A pipeline script was built to automate the collection of 200 stocks and their corresponding indicators
 
 ## The Trading Conditions
 * Fixed exit conditions
- *  +1% or -0.3% relative to purchase price, whichever happens first*
+	*  +1% or -0.3% relative to purchase price, whichever happens first*
 * SMA** entry conditions
- * If the SMA-8 crosses above the SMA-13, purchase at the open price of the following timestep
+	* If the SMA-8 crosses above the SMA-13, purchase at the open price of the following timestep 	
 
 \* For a given timestep, the lower bound condition was checked against the Low for that timestep before any other checks were made, and therefore may have yielded more conservative results than would have occured in real-time. Additionally, the price difference between the Close of one day and the Open of the next could vary widely, and therefore this basic algorithm may not reflect realtime trading as accurately as possible.
 \*\*The Simple Moving Average is calculated as the sum of the closing prices of the previous *n* timesteps, divded by the number of timesteps *n*. 
@@ -40,9 +40,9 @@ Given specific exit conditions for a stock trade, an indicator **will** perform 
 
 ## Improvements
 * Refactor the pipeline script
- * Isolate individual functions to better conform to best practices
- * Add logging
- * Make it easy to plug in different conditions
+	* Isolate individual functions to better conform to best practices 
+	* Add logging
+	* Make it easy to plug in different conditions
 * Refine the schema of the Postgres database
 * Include conditions for inter-day trades
 * Create simulations for use in a portfolio subject to trading commissions
