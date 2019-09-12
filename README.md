@@ -41,11 +41,14 @@ Given specific exit conditions for a stock trade, an indicator **will** perform 
 ## Results
 
 
+![winloss](https://github.com/anthonybaulo/stock-indicator-analysis/blob/master/images/winloss.png)
+
 ## Improvements
 * Refactor the pipeline script to follow best practices
 	* Isolate individual functions
 	* Add logging
 	* Modular code for different test conditions
 * Refine the schema of the Postgres database
+* Include 4398 observations from NYSE, after removing ETFs
 * Include conditions for inter-day trades
 * Create simulations for use in a portfolio subject to trading commissions
