@@ -41,7 +41,7 @@ Given specific exit conditions for a stock trade, an indicator **will** perform 
 ## Results
 
 
-![winloss](https://github.com/anthonybaulo/stock-indicator-analysis/blob/master/images/winloss.png)
+![winloss](images/winloss.png)
 
 ## Improvements
 * Refactor the pipeline script to follow best practices
