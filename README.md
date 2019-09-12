@@ -12,12 +12,12 @@ In proper nerd fashion, by the power of science, I hope to be able to either: 1)
 	* SMA Indicator: Numerical value
 * Pandas was used for data manipulation
 	* Joining stock prices and their relevant indicators
-	* Creating new columns based on the trading conditions for entering and exiting the hypothetical trade.
-	* Porting the transformed data to a PostgreSQL Database
+	* Creating new columns based on the trading conditions for entering and exiting the hypothetical trade
+	* Storage/retrieval from PostgreSQL DB
 
-* A pipeline script was built to automate the collection of 200 stocks and their corresponding indicators
+* A pipeline script was built to automate the collection/processing of 200 stocks and their corresponding indicators
 
-## The Trading Conditions
+## Trading Strategy Conditions
 * Fixed exit conditions
 	*  +1% or -0.3% relative to purchase price, whichever happens first*
 * SMA** entry conditions
