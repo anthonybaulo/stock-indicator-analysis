@@ -5,7 +5,7 @@ My motivation for this project is to create a reusable test environment to stati
 
 In proper nerd fashion, by the power of science, I hope to be able to either: 1) present them with contradictory results in a crowded room, or 2) use the supportive results to achieve world domination, and conveniently forget where the strategy came from. Just kidding. I'd make them a Duke or something.
 
-More practically, this test can be used to compare the results of a Machine Learning model to that of random chance. 
+More practically, this test can also be used to compare the results of a Machine Learning model to that of random chance. 
 
 ## The Data
 * The data was collected from the free tier of the [Alpha Vantage](https://www.alphavantage.co/) API, using the [python wrapper](https://github.com/RomelTorres/alpha_vantage) by Romel Torres 
@@ -15,10 +15,10 @@ More practically, this test can be used to compare the results of a Machine Lear
 	* SMA8/SMA13 Indicators: Single numerical value each
 * Pandas was used for data manipulation
 	* Joining stock prices and their relevant indicators
-	* Creating new columns based on the trading conditions for entering and exiting the hypothetical trade
+	* Creating new columns based on the given trading conditions
 	* Storage/retrieval from PostgreSQL DB
 
-* A pipeline script was built to automate the collection/processing of 200 stocks and their corresponding indicators
+* A pipeline script was built to automate the collection/processing/storage
 
 ## Trading Strategy Conditions
 * Fixed exit conditions
@@ -29,7 +29,7 @@ More practically, this test can be used to compare the results of a Machine Lear
 In the image below, the dotted lines indicate entry points as determined by the SMA  entry conditions.
 ![winloss](images/pricechart.png)
 
-\* For a given timestep, the lower bound condition was checked against the Low for that timestep before any other checks were made, and therefore may have yielded more conservative results than would have occured in real-time. Additionally, the price difference between the Close of one day and the Open of the next could vary widely, and therefore this basic algorithm may not reflect realtime trading as accurately as possible.
+\* For a given timestep, the lower bound condition was checked against the Low for that timestep before any other checks were made, and therefore may have yielded more conservative results than would have occured in real-time. Additionally, the price difference between the Close of one day and the Open of the next could vary widely, and therefore this basic algorithm may not reflect realtime trading as accurately as possible.<br>
 \*\*The Simple Moving Average is calculated as the sum of the closing prices of the previous *n* timesteps, divded by the number of timesteps *n*. 
  
 ## Statistical Test
@@ -59,26 +59,28 @@ A 0.05 significance level will be used.
 |------|-------|--------|------
 |Random| 2930  | 0.2823 |0.00832
 |SMA   | 2976  |0.2886  |0.00831
+
 \*Out of 63,237 collected timesteps
 
 ![winloss](images/winloss.png)
 
 ### p-value: 0.587
+If the null hypothesis is true, we can expect this difference of means (0.007) to occur roughly 59% of the time. 
+
 ### Conclusion
-As the p-value is not less than the significance region of 0.05, we fail to reject the null hypothesis.
+As the p-value is not less than 0.05, we fail to reject the null hypothesis.
 
 ### Test Power
-This was a low powered test:
+There is a 19% chance we will detect a difference of 0.007 when such a difference actually exists. Therfore, this is a low powered test.
 
 ![winloss](images/testpower.png)
 
-However, if we were to treat this as a sample run, and go on to collect a larger dataset that achieves a higher power, then the minimum sample size needed to achieve: 
+However, if we were to treat this as a sample run, and go on to collect a larger dataset that achieves a higher power, then we would need a minimum sample size of 54,064 to achieve: 
 
 * Power: 0.95
-* Effect size: 0.006
+* Effect size: 0.007
 * Alpha: 0.05
 
-is 54,064 samples, as shown below
 
 ![winloss](images/largenpower.png)
 
@@ -92,3 +94,4 @@ is 54,064 samples, as shown below
 * Include 4398 observations from NYSE, after removing ETFs
 * Include conditions for inter-day trades
 * Create simulations for use in a portfolio subject to fees/commissions
+
