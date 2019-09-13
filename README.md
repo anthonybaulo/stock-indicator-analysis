@@ -139,4 +139,3 @@ However, if we were to treat this as a sample run, and go on to collect a larger
 * Include 4398 observations from NYSE, after removing ETFs
 * Include conditions for inter-day trades
 * Create simulations for use in a portfolio subject to fees/commissions
-
