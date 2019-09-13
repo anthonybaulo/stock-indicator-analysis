@@ -62,7 +62,9 @@ A 0.05 significance level will be used.
 
 \*Out of 63,237 collected timesteps
 
-![winloss](images/winloss.png)
+<p align="center">
+  <img height="460" src="images/winloss.png">
+</p>
 
 ### Conclusion
 * p-value: 0.587
