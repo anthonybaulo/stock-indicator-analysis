@@ -5,14 +5,24 @@ My motivation for this project is to create a reusable test environment to stati
 
 In proper nerd fashion, by the power of science, I hope to be able to either: 1) present them with contradictory results in a crowded room, or 2) use the supportive results to achieve world domination, and conveniently forget where the strategy came from. Just kidding. I'd make them a Duke or something.
 
-More practically, this test can also be used to compare the results of a Machine Learning model to that of random chance. 
+More practically, this test can also be used to measure the results of a predictive Machine Learning model in the future. 
+
+The trading conditions used for this first pass are intentionally naive, as the focus is to develop the testing framework. They are loosely based on simple explanations of simple moving averages and stop-losses found somewhere in the depths of YouTube. They will be tested against random chance for the null hypothesis, but could feasibly be tested against another set of conditions.
+
+## Technologies Used
+* Python
+* Jupyters
+* Pandas
+* Scipy
+* Matplotlib
+* PostgreSQL
 
 ## The Data
 * The data was collected from the free tier of the [Alpha Vantage](https://www.alphavantage.co/) API, using the [python wrapper](https://github.com/RomelTorres/alpha_vantage) by Romel Torres 
 	* 100 random stock tickers (excluding indexes) from the NASDAQ were selected for testing 	
 	* 5-minute timestep intervals, over the past 15 trading days (gathered on 9/11/19 - 9/12/19)
-	* Stock Price: Open, High, Low, Close
-	* SMA8/SMA13 Indicators: Single numerical value each
+		* API limitation (free tier)
+
 * Pandas was used for data manipulation
 	* Joining stock prices and their relevant indicators
 	* Creating new columns based on the given trading conditions
@@ -20,13 +30,16 @@ More practically, this test can also be used to compare the results of a Machine
 
 * A pipeline script was built to automate the collection/processing/storage
 
+Example:
+![data](images/data.png)
+
 ## Trading Strategy Conditions
 * Fixed exit conditions
 	*  +1% or -0.3% relative to purchase price, whichever happens first*
 * SMA** entry conditions
 	* If the SMA-8 crosses above the SMA-13, purchase at the open price of the following timestep 	
 
-In the image below, the dotted lines indicate entry points as determined by the SMA  entry conditions.
+Visualization of the SMA entry conditions:
 ![winloss](images/pricechart.png)
 
 \* For a given timestep, the lower bound condition was checked against the Low for that timestep before any other checks were made, and therefore may have yielded more conservative results than would have occured in real-time. Additionally, the price difference between the Close of one day and the Open of the next could vary widely, and therefore this basic algorithm may not reflect realtime trading as accurately as possible.<br>
@@ -43,7 +56,7 @@ Given specific exit conditions for a stock trade, an indicator **will** perform 
 The mean of successes from the random entries will be used to model the null hypothesis, assuming a normal distribution as per the CLT.
 
 ### Threshold
-A 0.05 significance level will be used.
+Given my lack of domain knowledge, I will default to the widely accepted 0.05 significance level.
 
 ## Execution
 1. The data was iterated through sequentially with the stated conditions to check for indicated entry points.
@@ -53,7 +66,28 @@ A 0.05 significance level will be used.
 	* This resulted in 2 Bernoulii distributions
 4. A one-tailed, independent samples t-test was used to compare the mean of the two distributions
 
+Example code to check exit conditions:
+
+```python
+# buy_idxs contains all df indexes that satisfied the SMA entry requirements
+for idx in buy_idxs:
+    purch_price = df.loc[idx, 'open']
+    upper_lim = purch_price * 1.01
+    lower_lim = purch_price * 0.997
+    for i in range(idx, len(df)):
+        if (df.loc[i, ["high", "low", "close"]]<=lower_lim).any():
+            break
+        elif (df.loc[i, ["high", "low", "close"]]>=upper_lim).any():
+            df.at[idx, "sma_win"] = 1
+            break
+
+```
+
 ## Results
+
+<p align="center">
+  <img height="460" src="images/winloss.png">
+</p>
 
 |      |   n   |   mu   |   se
 |------|-------|--------|------
@@ -62,9 +96,7 @@ A 0.05 significance level will be used.
 
 \*Out of 63,237 collected timesteps
 
-<p align="center">
-  <img height="460" src="images/winloss.png">
-</p>
+
 
 ### Conclusion
 * p-value: 0.587
@@ -84,6 +116,8 @@ However, if we were to treat this as a sample run, and go on to collect a larger
 
 
 ![winloss](images/largenpower.png)
+
+## Key Takeaways
 
 
 ## Future Improvements
