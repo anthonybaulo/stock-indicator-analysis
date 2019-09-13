@@ -72,22 +72,22 @@ This was a low powered test:
 
 ![winloss](images/testpower.png)
 
-However, if we were to treat this run as a sample, and go on to collect a larger dataset that achieves a higher power, then the minimum sample size needed to achieve: 
+However, if we were to treat this as a sample run, and go on to collect a larger dataset that achieves a higher power, then the minimum sample size needed to achieve: 
 
-* 0.95 power
-* 0.006 effect size
-* 0.05 alpha
+* Power: 0.95
+* Effect size: 0.006
+* Alpha: 0.05
 
-is 54,064 samples
+is 54,064 samples, as shown below
 
 ![winloss](images/largenpower.png)
 
 
-## Improvements
-* Refactor the pipeline script to follow best practices
+## Future Improvements
+* Refactor the pipeline script
 	* Isolate individual functions
 	* Add logging
-	* Modular code for different test conditions
+	* Make the code more modular for different test conditions and trading conditions
 * Refine the schema of the Postgres database
 * Include 4398 observations from NYSE, after removing ETFs
 * Include conditions for inter-day trades
