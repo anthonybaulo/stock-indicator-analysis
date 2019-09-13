@@ -131,11 +131,11 @@ However, if we were to treat this as a sample run, and go on to collect a larger
 	* Statistics
 
 ## Future Improvements
-* Refactor the pipeline script
-	* Isolate individual functions
-	* Add logging
-	* Create more robust and modular environment for testing and trading conditions
-* Refine the schema of the Postgres database
-* Include 4398 observations from NYSE, after removing ETFs
-* Include conditions for inter-day trades
-* Create simulations for use in a portfolio subject to fees/commissions
+- [ ] Refactor the pipeline script
+	- [ ] Isolate individual functions
+	- [ ] Add logging
+	- [ ] Create more robust and modular environment for testing and trading conditions
+- [ ] Refine the schema of the Postgres database
+- [ ] Include 4398 observations from NYSE, after removing ETFs
+- [ ] Include conditions for inter-day trades
+- [ ] Create simulations for use in a portfolio subject to fees/commissions
