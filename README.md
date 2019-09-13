@@ -11,7 +11,7 @@ The trading conditions used for this first pass are intentionally naive, as the 
 
 ## Technologies Used
 * Python
-* Jupyters
+* Jupyter
 * Pandas
 * Scipy
 * Matplotlib
