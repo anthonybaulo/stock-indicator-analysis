@@ -89,7 +89,7 @@ However, if we were to treat this as a sample run, and go on to collect a larger
 * Refactor the pipeline script
 	* Isolate individual functions
 	* Add logging
-	* Make the code more modular for different test conditions and trading conditions
+	* Create more robust and modular environment for testing and trading conditions
 * Refine the schema of the Postgres database
 * Include 4398 observations from NYSE, after removing ETFs
 * Include conditions for inter-day trades
