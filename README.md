@@ -40,7 +40,7 @@ Given specific exit conditions for a stock trade, an indicator **will not** perf
 Given specific exit conditions for a stock trade, an indicator **will** perform better than random chance at predicting a winning entry point. <br> *mu\_0 < mu\_a*
 
 ### Model
-The mean of successes from the random entries will be used (assuming a normal distribution, as per the CLT) to model the null hypothesis.
+The mean of successes from the random entries will be used to model the null hypothesis, assuming a normal distribution as per the CLT.
 
 ### Threshold
 A 0.05 significance level will be used.
@@ -64,11 +64,10 @@ A 0.05 significance level will be used.
 
 ![winloss](images/winloss.png)
 
-### p-value: 0.587
-If the null hypothesis is true, we can expect this difference of means (0.007) to occur roughly 59% of the time. 
-
 ### Conclusion
-As the p-value is not less than 0.05, we fail to reject the null hypothesis.
+* p-value: 0.587
+	* Given the null hypothesis is true, we can expect to see these results roughly 59% of the time.
+* As the p-value is not less than 0.05, we fail to reject the null hypothesis.
 
 ### Test Power
 There is a 19% chance we will detect a difference of 0.007 when such a difference actually exists. Therfore, this is a low powered test.
