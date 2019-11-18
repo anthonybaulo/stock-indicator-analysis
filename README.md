@@ -1,5 +1,18 @@
 # Stock Indicator Test
 
+<a name="top"></a>
+## Table of Contents
+[Intro](#intro)<br>
+[Technology](#tech)<br>
+[Data](#data)<br>
+[Hypothesis](#hyp)<br>
+[Strategy Conditions](#strat)<br>
+[Setup and Execution](#exe)<br>
+[Results](#results)<br>
+
+---
+
+<a name="intro"></a>
 ## Introduction
 My motivation for this project is to create a reusable test environment to statistically measure the viability of a given trading strategy, the likes of which might be touted by a fanatic YouTuber, an arrogant party guest, or your local barfly. 
 
@@ -9,6 +22,7 @@ More practically, this test can also be used to measure the results of a predict
 
 The trading conditions used for this first pass are intentionally naive, as the focus is to develop the testing framework. They are loosely based on a basic understanding of simple moving averages and stop-losses. They will be tested against random chance for the null hypothesis, but could feasibly be tested against another set of conditions.
 
+<a name="tech"></a>
 ## Technologies Used
 * Python
 * Jupyter
@@ -17,6 +31,7 @@ The trading conditions used for this first pass are intentionally naive, as the 
 * Matplotlib
 * PostgreSQL
 
+<a name="data"></a>
 ## The Data
 * The data was collected from the free tier of the [Alpha Vantage](https://www.alphavantage.co/) API, using the [python wrapper](https://github.com/RomelTorres/alpha_vantage) by Romel Torres 
 	* 100 random stock tickers (excluding indexes) from the NASDAQ were selected for testing 	
@@ -30,9 +45,19 @@ The trading conditions used for this first pass are intentionally naive, as the 
 
 * A pipeline script was built to automate the collection/processing/storage
 
-Example:
+Example:<br>
 ![data](images/data.png)
 
+<a name="hyp"></a>
+## Hypothesis
+### Null hypothesis:
+Given specific exit conditions for a stock trade, an indicator **will not** perform better than random chance at predicting a winning entry point. <br> *mu\_0 = mu\_a*
+
+### Alternative hypothesis:
+Given specific exit conditions for a stock trade, an indicator **will** perform better than random chance at predicting a winning entry point. <br> *mu\_0 < mu\_a*
+
+
+<a name="strat"></a>
 ## Trading Strategy Conditions
 * Fixed exit conditions
 	*  +1% or -0.3% relative to purchase price, whichever happens first*
@@ -40,12 +65,17 @@ Example:
 	* If the SMA-8 crosses above the SMA-13, purchase at the open price of the following timestep 	
 
 Visualization of the SMA entry conditions:
-![winloss](images/pricechart.png)
+
+<p align="center">
+  <img src="images/pricechart.png" width="80%"/>
+</p>
+
 
 \* For a given timestep, the lower bound condition was checked against the Low for that timestep before any other checks were made, and therefore may have yielded more conservative results than would have occured in real-time. Additionally, the price difference between the Close of one day and the Open of the next could vary widely, and therefore this basic algorithm may not reflect realtime trading as accurately as possible.<br>
 \*\*The Simple Moving Average is calculated as the sum of the closing prices of the previous *n* timesteps, divded by the number of timesteps *n*. 
  
-## Statistical Test
+<a name="exe"></a>
+## Setup
 ### Null hypothesis:
 Given specific exit conditions for a stock trade, an indicator **will not** perform better than random chance at predicting a winning entry point. <br> *mu\_0 = mu\_a*
 
@@ -83,6 +113,7 @@ for idx in buy_idxs:
 
 ```
 
+<a name="results"></a>
 ## Results
 
 <p align="center">
