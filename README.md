@@ -76,12 +76,6 @@ Visualization of the SMA entry conditions:
  
 <a name="exe"></a>
 ## Setup
-### Null hypothesis:
-Given specific exit conditions for a stock trade, an indicator **will not** perform better than random chance at predicting a winning entry point. <br> *mu\_0 = mu\_a*
-
-### Alternative hypothesis:
-Given specific exit conditions for a stock trade, an indicator **will** perform better than random chance at predicting a winning entry point. <br> *mu\_0 < mu\_a*
-
 ### Model
 The mean of successes from the random entries will be used to model the null hypothesis, assuming a normal distribution as per the CLT.
 
@@ -155,7 +149,7 @@ However, if we were to treat this as a sample run, and go on to collect a larger
 	* This can be applied to different trading conditions in the future
 * The data was relatively clean, with very few missing values
 	* I might expect the same to be true of similar financial data 
-* I experienced significant improvement in the following skills: 
+* Built on foundational knowledge: 
 	* Pandas
 	* Postgres
 	* Scripting
